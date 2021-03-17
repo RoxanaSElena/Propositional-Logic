@@ -1,0 +1,24 @@
+% Everyone who loves dogs is  lucky.
+% Anyone who hurts a dog cannot be luck.y
+% Vlad loves all dogs. 
+% Either Vlad or Maria hurts the German Shepherd called Irod.
+% The German Shepherd is a dog. 
+% Did Maria hurt the German Shepherd? 
+
+set (binary_resolution). 
+
+formulas (assumptions). 
+
+all x (all y (Dog(y) -> Loves(x,y)) -> Lucky(x)). 
+all x (exists z (Dog(z) & Hurt(x,z)) -> -Lucky(x)).
+all x (Dog(x) -> Loves(Vlad,x)). 
+Hurt(Vlad, Irod) | Hurt(Maria, Irod). 
+German_Shepherd(Irod). 
+all x (German_Shepherd(x) -> Dog(x)). 
+end_of_list.
+
+formulas(goals).
+Hurt(Maria, Irod).
+end_of_list.
+
+

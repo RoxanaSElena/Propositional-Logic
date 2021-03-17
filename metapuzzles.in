@@ -1,0 +1,19 @@
+% type A can only ask questions whose answ are YES
+% type B can only ask questions whose answ are NO
+% Arthur asks Robert "Is at least one of us of type B? " 
+
+formulas (assumptions). 
+(typeA(Arthur) & typeA(Robert)) | (typeA(Arthur) & -typeA(Robert)) | (-typeA(Arthur) & typeA(Robert)) | (-typeA(Arthur) & -typeA(Robert)). 
+
+typeA(Arthur) -> couldAsk(Robert). 
+-typeA(Arthur) -> -couldAsk(Robert). 
+
+typeA(Robert) & couldAsk(Robert) -> ((-typeA(Arthur) & typeA(Robert)) | (typeA(Arthur) & -typeA(Robert)) | (typeA(Arthur) & -typeA(Robert))).
+typeA(Robert) & -couldAsk(Robert) -> (typeA(Arthur) & -typeA(Robert)).
+-typeA(Robert) & couldAsk(Robert) -> (typeA(Arthur) & -typeA(Robert)).
+-typeA(Robert) & -couldAsk(Robert) -> ((-typeA(Arthur) & typeA(Robert)) | (typeA(Arthur) & -typeA(Robert)) | (typeA(Arthur) & -typeA(Robert))).
+end_of_list.
+
+formulas(goals). 
+typeA(Arthur) & -typeA(Robert). 
+end_of_list.

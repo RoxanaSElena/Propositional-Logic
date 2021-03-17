@@ -1,0 +1,60 @@
+%FInding models FOL - EInstein's problem 
+% Which ship carries tea ? WHich has the destination Port_Said?
+
+%We know that : 
+% Greek ship leaves at 6 and carries coffee.
+% The ship in the middle has a  black chimney. 
+% The English ship leaves at 9.
+% The French ship with blue chimney is to the left of the ship that carries coffee.
+% To the right of the ship carrying cocoa is a ship going to Marseille. 
+% The Brazilian ship is heading to Manila.
+% Next to the ship carrying rice is a ship with a green chimney. 
+% A ship going to Genova leaves at 5. 
+% The Spanish ship leaves at 7 and is to the right of the ship going to Marseille
+% The ship with a red chimney goes to Hamburg. 
+% Next to the ship that leaves at 7 is a ship woth white chimney. 
+% The ship on the border carries corn
+% The ship with the black chimney leaves at 8 
+% The ship that carries corn is anchored next to the one carrying rice
+% The ship to Hamburg leaves at 6
+
+set (arithmetic). % for "right neighbour"/ "left neighbour" relation
+assign (domain_size, 5). % there are 5 ships {0, 1, 2, 3, 4}
+
+list(distinct). %Objects in each list are distinct
+
+[Greek, English, Spanish, French, Brazilian]. % nationalities are distinct
+[Black, Blue, Green, White, Red]. % chimney colour is distinct
+[Six, Nine, Five, Seven, Eight]. %depature hour is distinct
+[Hamburg, Manila, Genova, Marseille, Port_Said]. %destination is distinct
+[Tea, Coffee, Cocoa, Rice, Corn]. %cargo is distinct
+end_of_list.
+
+formulas(assumptions). 
+
+right_neighbour(x,y) <-> x < y. 
+left_neighbour(x,y) <-> x > y. 
+middle(x) <-> x = 2.
+border(x) <-> x = 0 | x = 4.
+neighbour(x,y) <-> right_neighbour(x,y) | left_neighbour(x,y).
+
+Greek = Six. 
+Greek = Coffee. 
+middle(Black). 
+English = Nine.
+French = Blue. 
+left_neighbour(Coffee, French).
+right_neighbour(Cocoa, Marseille).
+Brazilian = Manila. 
+neighbour(Rice, Green).
+Genova = Five.
+Spanish = Seven.
+right_neighbour(Marseille, Spanish).
+Hamburg = Red.
+neighbour(Seven, White).
+border(Corn).
+Black = Eight.
+neighbour(Corn, Rice).
+Hamburg = Six.
+
+end_of_list.

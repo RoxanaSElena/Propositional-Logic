@@ -1,0 +1,24 @@
+%sane humans tell the truth
+%insane humans tell a lie
+%sane vampires tell a lie 
+%insane vampire tell the truth 
+%Karl says "My sister is a vampire"
+%Martha says " My brother is insane"
+
+formulas(assumptions).
+
+(human(Karl) & -human(Martha)) | (-human(Karl) & human(Martha)).
+(sane(Karl) & -sane(Martha)) | ( -sane(Karl) & sane(Martha)). 
+liar(x) <-> (-sane(x) & human(x)) | (sane(x) & -human(x)).
+-liar(x) <-> (sane(x) & human(x)) | (-sane(x) & -human(x)).
+
+-liar(Martha) <-> (-sane(Karl) & sane(Martha)).
+-liar(Karl) <-> (-human(Martha)) | (human(Karl)).
+
+end_of_list.
+
+formulas(goals).
+-human(Karl).
+end_of_list.
+
+
